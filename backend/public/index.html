@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CORS Test</title>
+</head>
+<body>
+  <h1>CORS Test</h1>
+  <button id="testRequest">Test API Request</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById('testRequest').addEventListener('click', async () => {
+      try {
+        const response = await fetch('https://309paymentapi.vercel.app/api/payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': '9c0d4e14391890a4a9c2cf870534682204728c4bc09343a27e0ee73f943773ed'
+          },
+          body: JSON.stringify({
+            cardNumber: '4242424242424242',
+            cvv: '123',
+            expiryDate: '12/25',
+            cardHolderName: 'John Doe'
+          })
+        });
+        const result = await response.json();
+        document.getElementById('output').textContent = JSON.stringify(result, null, 2);
+      } catch (error) {
+        document.getElementById('output').textContent = 'Error: ' + error;
+      }
+    });
+  </script>
+</body>
+</html>
